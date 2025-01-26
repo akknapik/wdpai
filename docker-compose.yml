@@ -1,20 +1,32 @@
-version: '4'
-
+version: '3.8'
 services:
-  web:
-    build:
-      context: .
-      dockerfile: docker/nginx/Dockerfile
+  php:
+    build: .
+    container_name: php
     ports:
       - "8080:80"
-    volumes:
-      - .:/app/
-    links:
-      - php
+    depends_on:
+      - db
+    networks:
+      - mynet
 
-  php:
-    build:
-      context: .
-      dockerfile: docker/php/Dockerfile
+  db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postgres
     volumes:
-      - .:/app/
+      - db-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - mynet
+
+networks:
+  mynet:
+
+volumes:
+  db-data:

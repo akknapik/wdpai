@@ -4,6 +4,7 @@ body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(180deg, #1EB96C, #0D5330);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -43,10 +44,18 @@ body {
     align-items: center;
     gap: 15px;
   }
+
+  .form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 10px;
+  }
   
   .input-field {
-    width: 80%;
-    padding: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
@@ -62,7 +71,7 @@ body {
   }
   
   .btn {
-    width: 88%;
+    width: 100%;
     padding: 15px;
     font-size: 16px;
     font-weight: bold;
@@ -83,13 +92,31 @@ body {
     background: #27ae60;
   }
   
-  .reset-btn {
+  .register-btn {
+    width: 80%;
+    margin: auto;
     background: none;
     color: #ffffff;
     border: 1px solid #000000;
   }
   
-  .reset-btn:hover {
+  .register-btn:hover {
     background: rgba(255, 255, 255, 0.1);
   }
+
+  a:has(.register-btn) {
+    display: flex;
+    width: 100%;
+    text-decoration: none;
+  }
+  
+  .centered-text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+
+
   
