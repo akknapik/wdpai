@@ -13,7 +13,7 @@ class UserRepository
 
     public function findUserByEmail($email)
     {
-        $sql = "SELECT id_user, email, password, role 
+        $sql = "SELECT id_user, firstname, lastname, email, password, role 
                 FROM users 
                 WHERE email = :email";
         $stmt = $this->db->prepare($sql);
@@ -22,16 +22,18 @@ class UserRepository
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new User($row['email'], $row['password'], $row['role'], $row['id_user']);
+            return new User($row['firstname'], $row['lastname'], $row['email'], $row['password'], $row['role'], $row['id_user']);
         }
         return null;
     }
 
     public function saveUser(User $user)
     {
-        $sql = "INSERT INTO users (email, password, role) 
-                VALUES (:email, :password, :role)";
+        $sql = "INSERT INTO users (firstname, lastname, email, password, role) 
+                VALUES (:firstname, :lastname, :email, :password, :role)";
         $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':firstname', $user->getFirstname(), PDO::PARAM_STR);
+        $stmt->bindValue(':lastname', $user->getLastname(), PDO::PARAM_STR);
         $stmt->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
         $stmt->bindValue(':password', $user->getPassword(), PDO::PARAM_STR);
         $stmt->bindValue(':role', $user->getRole(), PDO::PARAM_INT);

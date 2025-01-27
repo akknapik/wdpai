@@ -12,7 +12,7 @@ class AuthorizationService
     }
 
  
-    public function register($email, $password)
+    public function register($firstname, $lastname, $email, $password)
     {
         $existingUser = $this->userRepository->findUserByEmail($email);
         if ($existingUser !== null) {
@@ -21,7 +21,7 @@ class AuthorizationService
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        $user = new User($email, $hashedPassword);
+        $user = new User($firstname, $lastname, $email, $hashedPassword);
         $this->userRepository->saveUser($user);
 
         return true;
@@ -41,6 +41,8 @@ class AuthorizationService
             $_SESSION['user_id'] = $user->getId();
             $_SESSION['email'] = $user->getEmail();
             $_SESSION['role'] = $user->getRole();
+            $_SESSION['firstname'] = $user->getFirstname();
+            $_SESSION['lastname'] = $user->getLastname();
             return true;
         }
 

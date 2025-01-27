@@ -26,6 +26,8 @@
       <?php endif; ?>
 
       <form action="../controllers/RegisterController.php" method="POST" class="form">
+        <input type="text" name="firstname" placeholder="FIRSTNAME" class="input-field" required>
+        <input type="text " name="lastname" placeholder="LASTNAME" class="input-field" required>
         <input type="email" name="email" placeholder="EMAIL" class="input-field" required>
         <input type="password" name="password" placeholder="PASSWORD" class="input-field" required>
         <input type="password" name="repeat_password" placeholder="REPEAT PASSWORD" class="input-field" required>

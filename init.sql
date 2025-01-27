@@ -1,5 +1,7 @@
-CREATE TABLE IF NOT EXISTS public.users (
+CREATE table IF NOT EXISTS public.users (
     id_user SERIAL PRIMARY KEY,
+    firstname varchar not null,
+    lastname varchar not null,
     email varchar NOT NULL UNIQUE,
     password varchar NOT NULL,
     role int DEFAULT 2 NOT NULL
