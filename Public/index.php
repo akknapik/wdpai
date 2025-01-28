@@ -11,12 +11,11 @@ require_once './services/WorkSessionService.php';
 $database = new Database();
 $conn = $database->getConnection();
 
-$workSessionRepo = new WorkSessionRepository($conn);
-$workSessionService = new WorkSessionService($workSessionRepo);
+$repo = new WorkSessionRepository($conn);
+$service = new WorkSessionService($repo);
 
 $idUser = $_SESSION['user_id'];
-$activeSession = $workSessionRepo->findActiveSessionByUser($idUser);
-$currentWorkActive = $activeSession ? true : false;
+$isActive = $service->hasActiveSession($idUser);
 
 $firstname = $_SESSION['firstname'] ?? 'Name';
 $lastname  = $_SESSION['lastname'] ?? 'Surname';
@@ -36,7 +35,7 @@ $lastname  = $_SESSION['lastname'] ?? 'Surname';
     <nav>
       <ul>
         <li><a href="./index.php">HOME</a></li>
-        <li><a href="#">LEAVE</a></li>
+        <li><a href="./leave.php">LEAVE</a></li>
         <li><a href="#">SETTINGS</a></li>
       </ul>
     </nav>
@@ -53,14 +52,14 @@ $lastname  = $_SESSION['lastname'] ?? 'Surname';
     <h2 class="section-title">WORK TIME</h2>
 
     <div class="time-stats">
-      <div class="time-row">TODAY: 0 min</div>
-      <div class="time-row">THIS WEEK: 0 min</div>
-      <div class="time-row">THIS MONTH: 0 min</div>
-      <div class="time-row">THIS MONTH: 0 min</div>
+      <div class="time-row" id="todayRow">TODAY: - min</div>
+      <div class="time-row" id="weekRow">THIS WEEK: - min</div>
+      <div class="time-row" id="monthRow">THIS MONTH: - min</div>
+      <div class="time-row" id="yearRow">THIS YEAR: - min</div>
     </div>
 
     <form action="./controllers/WorkController.php" method="POST" style="text-align: center;">
-      <?php if (!$currentWorkActive): ?>
+      <?php if (!$isActive): ?>
         <input type="hidden" name="action" value="start">
         <button type="submit" class="start-work-btn">START WORK</button>
       <?php else: ?>
@@ -70,12 +69,12 @@ $lastname  = $_SESSION['lastname'] ?? 'Surname';
     </form>
 
     <div class="work-status">
-      <?php if (!$currentWorkActive): ?>
+      <?php if (!$isActive): ?>
         <span class="status">STATUS: NOT WORKING</span>
-        <span class="current-session">CURRENT SESSION: 0 min</span>
+        <span class="current-session" id="currentSession">CURRENT SESSION: 0 min</span>
       <?php else: ?>
         <span class="status">STATUS: WORKING</span>
-        <span class="current-session">CURRENT SESSION: ??? min</span>
+        <span class="current-session" id="currentSession">CURRENT SESSION: ??? min</span>
       <?php endif; ?>
     </div>
   </main>
@@ -87,9 +86,36 @@ $lastname  = $_SESSION['lastname'] ?? 'Surname';
       <a href="#">Service</a>
     </div>
     <p class="footer-copy">
-      Copyright ©2025; 
+      Copyright ©2025;
       Designed by akknapik
     </p>
   </footer>
+
+  <script>
+
+    function fetchStats() {
+      fetch('./controllers/StatsController.php')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          document.getElementById('todayRow').textContent  = "TODAY: " + data.dailyTime + " min";
+          document.getElementById('weekRow').textContent   = "THIS WEEK: " + data.weeklyTime + " min";
+          document.getElementById('monthRow').textContent  = "THIS MONTH: " + data.monthlyTime + " min";
+          document.getElementById('yearRow').textContent   = "THIS YEAR: " + data.yearlyTime + " min";
+          document.getElementById('currentSession').textContent = "CURRENT SESSION: " + data.currentSessionTime + " min";
+        })
+        .catch(error => {
+          console.error('Error fetching stats:', error);
+        });
+    }
+
+    fetchStats();
+    setInterval(fetchStats, 30000);
+  </script>
+
 </body>
 </html>

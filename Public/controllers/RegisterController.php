@@ -1,7 +1,7 @@
 <?php
 
 require_once '../db/Database.php';
-require_once '../models/UserRepository.php';
+require_once '../repository/UserRepository.php';
 require_once '../services/AuthorizationService.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../models/UserRepository.php';
+require_once __DIR__ . '/../repository/UserRepository.php';
 
 class AuthorizationService
 {
