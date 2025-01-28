@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+$id_user = $_SESSION['user_id'];
 $action = $_POST['action'] ?? '';
 
 require_once '../db/Database.php';
@@ -17,7 +18,6 @@ $conn = $database->getConnection();
 $workSessionRepo = new WorkSessionRepository($conn);
 $workSessionService = new WorkSessionService($workSessionRepo);
 
-$id_user = $_SESSION['user_id'];
 
 if ($action === 'start') {
     $workSessionService->startWork($id_user);
