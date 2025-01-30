@@ -32,7 +32,7 @@ if ($action === 'create') {
         exit;
     }
 
-    $newLeaveId = $leavesService->createLeave(
+    $newLeaveId = $leaveService->createLeave(
         $idUser,
         (int)$leaveType,
         $dateStart,

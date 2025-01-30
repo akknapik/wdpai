@@ -1,6 +1,8 @@
 .leave-list {
     background-color: #ccc;
     padding: 1rem;
+    max-height: 300px; 
+    overflow-y: auto;
   }
   
   .leave-row {
@@ -37,20 +39,20 @@
   }
   .leave-status.pending {
     background-color: #dfdfdf;
-    color: #444;
+    color: blue;
   }
   .leave-status.approved {
     background-color: #c0f1c0;
-    color: #2e7d2e;
+    color: green;
   }
   .leave-status.rejected {
     background-color: #f5baba;
-    color: #b74141;
+    color: red;
   }
   
   .new-leave-container {
     text-align: center;
-    margin-top: 2rem;
+    margin: 2rem;
   }
   .new-leave-btn {
     background-color: #3a9e3c;
