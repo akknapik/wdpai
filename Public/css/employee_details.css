@@ -1,0 +1,157 @@
+/* Podstawowe wyzerowanie marginesów/paddingów (opcjonalnie) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Główna część strony */
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #ddd;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+  
+  /* Informacje o pracowniku */
+  .employee-info {
+    background-color: #ccc;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+  }
+  
+  .employee-info p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  /* Nagłówek listy urlopów */
+  main h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.4rem;
+  }
+  
+  .leave-list {
+    background-color: #ccc;
+    padding: 1rem;
+    max-height: 300px; 
+    overflow-y: auto;
+  }
+  
+  .leave-row {
+    background-color: #bbb;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .leave-row:hover {
+    background-color: #aaa;
+  }
+  
+  .leave-type {
+    width: 150px;
+    font-weight: bold;
+  }
+  .leave-dates {
+    flex: 1; 
+    text-align: center;
+    font-style: italic;
+  }
+  
+  .leave-status {
+    width: 100px;
+    text-align: center;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    background-color: #eee;
+    color: #333;
+    font-weight: bold;
+  }
+  .leave-status.pending {
+    background-color: #dfdfdf;
+    color: blue;
+  }
+  .leave-status.approved {
+    background-color: #c0f1c0;
+    color: green;
+  }
+  .leave-status.rejected {
+    background-color: #f5baba;
+    color: red;
+  }
+  
+  .modal {
+    display: none; 
+    position: fixed;
+    z-index: 999; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 4px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Pola tekstowe w modalu */
+  .modal-content textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #999;
+    border-radius: 4px;
+  }
+  
+  /* Sekcja przycisków Approve/Reject */
+  .modal-actions {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  
+  .status-btn {
+    background-color: #3a9e3c; 
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    margin: 0 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+  }
+  .status-btn:hover {
+    background-color: #2e7e2f;
+  }
+  
+  .status-btn.reject {
+    background-color: #e02121;
+  }
+  .status-btn.reject:hover {
+    background-color: rgb(165, 4, 4);
+  }
+  
