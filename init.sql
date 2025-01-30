@@ -247,3 +247,23 @@ END;
 $function$
 ;
 
+CREATE OR REPLACE VIEW public.vw_employees AS
+SELECT 
+    u.id_user,
+    u.firstname,
+    u.lastname,
+    u.role,
+    COALESCE(COUNT(l.id_leave), 0) AS pending_leaves
+FROM users u
+LEFT JOIN leaves l ON l.id_user = u.id_user AND l.status = 1
+GROUP BY u.id_user, u.firstname, u.lastname, u.role;
+
+CREATE OR REPLACE VIEW vw_user_info AS
+SELECT
+  u.id_user,
+  u.firstname,
+  u.lastname,
+  u.email,
+  r.name AS role_name
+FROM users u
+JOIN roles r ON u.role = r.id_role;

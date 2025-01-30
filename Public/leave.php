@@ -38,7 +38,10 @@ $leaves = $leaveService->getLeaves($idUser);
       <ul>
         <li><a href="./index.php">HOME</a></li>
         <li><a href="./leave.php">LEAVE</a></li>
-        <li><a href="#">SETTINGS</a></li>
+        <?php if ($_SESSION['role'] == 1): ?>
+          <li><a href="./employees.php">EMPLOYEES</a></li>
+        <?php endif; ?>
+        <li><a href="./settings.php">SETTINGS</a></li>
       </ul>
     </nav>
     <div class="header-right">
@@ -86,7 +89,7 @@ $leaves = $leaveService->getLeaves($idUser);
       <a href="#">Service</a>
     </div>
     <p class="footer-copy">
-      Copyright ©2024;
+      Copyright ©2025;
       Designed by akknapik
     </p>
   </footer>

@@ -36,7 +36,10 @@ $lastname  = $_SESSION['lastname'] ?? 'Surname';
       <ul>
         <li><a href="./index.php">HOME</a></li>
         <li><a href="./leave.php">LEAVE</a></li>
-        <li><a href="#">SETTINGS</a></li>
+        <?php if ($_SESSION['role'] == 1): ?>
+          <li><a href="./employees.php">EMPLOYEES</a></li>
+        <?php endif; ?>
+        <li><a href="./settings.php">SETTINGS</a></li>
       </ul>
     </nav>
     <div class="header-right">
@@ -64,7 +67,7 @@ $lastname  = $_SESSION['lastname'] ?? 'Surname';
         <button type="submit" class="start-work-btn">START WORK</button>
       <?php else: ?>
         <input type="hidden" name="action" value="stop">
-        <button type="submit" class="start-work-btn" style="background-color: #e82121;">STOP WORK</button>
+        <button type="submit" class="start-work-btn stop">STOP WORK</button>
       <?php endif; ?>
     </form>
 

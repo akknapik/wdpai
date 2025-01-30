@@ -27,6 +27,18 @@ class UserRepository
         return null;
     }
 
+    public function findUserById($userId)
+    {
+        $sql = "SELECT id_user, email, password, firstname, lastname
+                FROM users
+                WHERE id_user = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function saveUser(User $user)
     {
         $sql = "INSERT INTO users (firstname, lastname, email, password, role) 
@@ -37,6 +49,38 @@ class UserRepository
         $stmt->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
         $stmt->bindValue(':password', $user->getPassword(), PDO::PARAM_STR);
         $stmt->bindValue(':role', $user->getRole(), PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function emailExists($email)
+    {
+        $sql = "SELECT 1 FROM users WHERE email = :email";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return (bool) $stmt->fetchColumn();
+    }
+
+    public function updateEmail($userId, $newEmail)
+    {
+        $sql = "UPDATE users
+                SET email = :email
+                WHERE id_user = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':email', $newEmail, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function updatePassword($userId, $hashedPassword)
+    {
+        $sql = "UPDATE users
+                SET password = :passwd
+                WHERE id_user = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':passwd', $hashedPassword, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
         $stmt->execute();
     }
 }
