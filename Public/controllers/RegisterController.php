@@ -1,15 +1,17 @@
 <?php
 
 require_once '../db/Database.php';
-require_once '../models/UserRepository.php';
+require_once '../repository/UserRepository.php';
 require_once '../services/AuthorizationService.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $firstname = $_POST['firstname'] ?? '';
+    $lastname = $_POST['lastname'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     $repeatPassword = $_POST['repeat_password'] ?? '';
 
-    if (empty($email) || empty($password) || empty($repeatPassword)) {
+    if (empty($firstname) || empty($lastname) || empty($email) || empty($password) || empty($repeatPassword)) {
         header("Location: ../register.php?error=empty_field");
         exit;
     }
@@ -24,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userRepo = new UserRepository($connection);
     $authService = new AuthorizationService($userRepo);
 
-    $success = $authService->register($email, $password);
+    $success = $authService->register($firstname, $lastname, $email, $password);
     if ($success) {
         header("Location: ../login.php?message=registered");
     } else {
