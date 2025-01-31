@@ -29,6 +29,9 @@ $success = $_GET['success'] ?? '';
       <ul>
         <li><a href="./index.php">HOME</a></li>
         <li><a href="./leave.php">LEAVE</a></li>
+        <?php if ($_SESSION['role'] == 1): ?>
+          <li><a href="./employees.php">EMPLOYEES</a></li>
+        <?php endif; ?>
         <li><a href="./settings.php">SETTINGS</a></li>
       </ul>
     </nav>

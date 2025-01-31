@@ -71,6 +71,7 @@ INSERT INTO public.leave_status ("name") VALUES
 	 ('approved'),
 	 ('rejected');
 
+
 CREATE TABLE public.leaves (
 	id_leave serial4 NOT NULL,
 	id_user int4 NOT NULL,
@@ -81,11 +82,21 @@ CREATE TABLE public.leaves (
 	additional_notes varchar NULL,
 	status int4 DEFAULT 1 NOT NULL,
 	manager_info varchar NULL,
+	date_of_manager_confirmation timestamp NULL,
 	CONSTRAINT leaves_pk PRIMARY KEY (id_leave),
 	CONSTRAINT leaves_leave_status_fk FOREIGN KEY (status) REFERENCES public.leave_status(id_status),
 	CONSTRAINT leaves_leave_type_fk FOREIGN KEY (leave_type) REFERENCES public.leave_type(id_leave_type),
 	CONSTRAINT leaves_users_fk FOREIGN KEY (id_user) REFERENCES public.users(id_user)
 );
+
+
+create trigger trigger_update_manager_confirmation_date before
+update
+    on
+    public.leaves for each row
+    when ((old.status is distinct
+from
+    new.status)) execute function update_manager_confirmation_date();
 
 CREATE OR REPLACE FUNCTION public.get_current_session_work_time(user_id_param integer)
  RETURNS integer
@@ -267,3 +278,19 @@ SELECT
   r.name AS role_name
 FROM users u
 JOIN roles r ON u.role = r.id_role;
+
+CREATE OR REPLACE FUNCTION update_manager_confirmation_date()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.status IS DISTINCT FROM OLD.status THEN
+        NEW.date_of_manager_confirmation = NOW(); 
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_update_manager_confirmation_date
+BEFORE UPDATE ON public.leaves
+FOR EACH ROW
+WHEN (OLD.status IS DISTINCT FROM NEW.status)
+EXECUTE FUNCTION update_manager_confirmation_date();

@@ -77,7 +77,6 @@
 
   main {
     width: 70%;
-    height: 100%;
     margin: 0 auto;
     background: #ddd;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -111,7 +110,7 @@
   
   .time-row {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-    background-color: #bbb;
+    background-color: #EDEDED;
     padding: 1rem;
     text-align: center;
   }
@@ -137,7 +136,7 @@
   }
 
   .start-work-btn.stop {
-    background-color: #e82121;
+    background-color: #f33232;
   }
 
   .start-work-btn.stop:hover {
@@ -191,6 +190,93 @@
     margin: 0;
   }
 
+
+@media (max-width: 992px) {
+  main {
+    width: 80%;  
+  }
+
+  .page-title {
+    font-size: 1.8rem; 
+  }
+  
+  .section-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    height: auto;
+    flex-wrap: wrap; 
+  }
+
+  .header-left,
+  .header-right {
+    width: auto; 
+    margin: 0;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center; 
+  }
+
+  main {
+    width: 90%;  
+  }
+  
+  .time-row,
+  .start-work-btn,
+  .work-status {
+    font-size: 0.95rem; 
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    max-height: 40px;
+  }
+
+  .page-title {
+    font-size: 1.4rem;
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .time-row {
+    padding: 0.5rem;
+  }
+
+  .start-work-btn {
+    padding: 0.8rem;  
+    font-size: 1rem;
+  }
+
+  .work-status {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .status, .current-session {
+    font-size: 0.9rem;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .footer-copy {
+    font-size: 0.8rem;
+    padding: 4px;
+  }
+}
 
 
 

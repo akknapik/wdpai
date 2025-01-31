@@ -73,7 +73,7 @@ $lastname  = $_SESSION['lastname'] ?? '';
     </div>
 
     <h2>All Leaves</h2>
-    <div class="leave-list" style="max-height:400px; overflow-y:auto;">
+    <div class="leave-list">
       <?php foreach ($leaves as $leave): ?>
         <?php
           $leaveId   = $leave['id_leave'];

@@ -119,4 +119,34 @@ body {
   }
 
 
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      width: 90%;
+      max-width: 600px; 
+    }
   
+    .logo {
+      max-width: 300px;
+    }
+  
+    .title {
+      font-size: 28px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo {
+      max-width: 200px;
+    }
+  
+    .title {
+      font-size: 24px;
+    }
+  
+    .btn,
+    .input-field {
+      font-size: 14px;
+      padding: 12px;
+    }
+  }

@@ -105,11 +105,17 @@ $lastname  = $_SESSION['lastname'] ?? 'Surname';
           return response.json();
         })
         .then(data => {
-          document.getElementById('todayRow').textContent  = "TODAY: " + data.dailyTime + " min";
-          document.getElementById('weekRow').textContent   = "THIS WEEK: " + data.weeklyTime + " min";
-          document.getElementById('monthRow').textContent  = "THIS MONTH: " + data.monthlyTime + " min";
-          document.getElementById('yearRow').textContent   = "THIS YEAR: " + data.yearlyTime + " min";
-          document.getElementById('currentSession').textContent = "CURRENT SESSION: " + data.currentSessionTime + " min";
+          const dailyStr   = formatTimeInMinutes(data.dailyTime);
+          const weeklyStr  = formatTimeInMinutes(data.weeklyTime);
+          const monthlyStr = formatTimeInMinutes(data.monthlyTime);
+          const yearlyStr  = formatTimeInMinutes(data.yearlyTime);
+          const currentStr = formatTimeInMinutes(data.currentSessionTime);
+
+          document.getElementById('todayRow').textContent  = "TODAY: " + dailyStr;
+          document.getElementById('weekRow').textContent   = "THIS WEEK: " + weeklyStr;
+          document.getElementById('monthRow').textContent  = "THIS MONTH: " + monthlyStr;
+          document.getElementById('yearRow').textContent   = "THIS YEAR: " + yearlyStr;
+          document.getElementById('currentSession').textContent = "CURRENT SESSION: " + currentStr;
         })
         .catch(error => {
           console.error('Error fetching stats:', error);
@@ -118,6 +124,25 @@ $lastname  = $_SESSION['lastname'] ?? 'Surname';
 
     fetchStats();
     setInterval(fetchStats, 30000);
+
+    function formatTimeInMinutes(totalMinutes) {
+      const days = Math.floor(totalMinutes / (60 * 24));    
+      const leftoverAfterDays = totalMinutes % (60 * 24);
+
+      const hours = Math.floor(leftoverAfterDays / 60);     
+      const mins = leftoverAfterDays % 60;                 
+
+      let parts = [];
+      if (days > 0) parts.push(days + 'd');
+      if (hours > 0) parts.push(hours + 'h');
+      if (mins > 0) parts.push(mins + 'min');
+
+      if (parts.length === 0) {
+        return '0min';
+      }
+
+      return parts.join(' '); 
+    }
   </script>
 
 </body>

@@ -1,17 +1,20 @@
 .employee-list {
   background-color: #ccc;
-  padding: 1rem;
-  margin-top: 2rem;
+  max-height: 450px;
+  overflow: auto;
 }
 
 .employee-row {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #EDEDED;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #bbb;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  border-radius: 4px;
+}
+
+.employee-row:hover {
+  background-color: #aaa;
 }
 
 .employee-name {
@@ -22,3 +25,27 @@
   font-style: italic;
   color: #444;
 }
+
+
+@media (max-width: 768px) {
+  .employee-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .employee-row {
+    padding: 0.5rem;
+  }
+
+  .employee-name {
+    font-size: 0.9rem;
+  }
+
+  .employee-pending {
+    font-size: 0.85rem;
+  }
+}
+  

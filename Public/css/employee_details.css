@@ -1,25 +1,15 @@
-/* Podstawowe wyzerowanie marginesów/paddingów (opcjonalnie) */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-  
-  /* Główna część strony */
-  main {
-    max-width: 900px;
-    margin: 2rem auto;
-    background: #ddd;
-    padding: 1rem;
-    border-radius: 4px;
-  }
-  
-  /* Informacje o pracowniku */
+   
   .employee-info {
-    background-color: #ccc;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    border-radius: 4px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    background-color: #ffffff;
+    padding: 0.7rem;
+    margin-bottom: 1rem;
   }
   
   .employee-info p {
@@ -27,7 +17,6 @@
     font-size: 1rem;
   }
   
-  /* Nagłówek listy urlopów */
   main h2 {
     margin-bottom: 1rem;
     text-align: center;
@@ -36,18 +25,17 @@
   
   .leave-list {
     background-color: #ccc;
-    padding: 1rem;
-    max-height: 300px; 
-    overflow-y: auto;
+    margin-bottom: 2rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    max-height: 260px;
+    overflow: auto;
   }
   
   .leave-row {
-    background-color: #bbb;
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    border-radius: 4px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: #EDEDED;
+    padding: 1rem;
     display: flex;
-    justify-content: space-between;
   }
   
   .leave-row:hover {
@@ -55,7 +43,7 @@
   }
   
   .leave-type {
-    width: 150px;
+    width: 30%;
     font-weight: bold;
   }
   .leave-dates {
@@ -65,24 +53,23 @@
   }
   
   .leave-status {
-    width: 100px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 20%;
     text-align: center;
     padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    background-color: #eee;
-    color: #333;
-    font-weight: bold;
+    background-color: #D9D9D9;
   }
+
   .leave-status.pending {
-    background-color: #dfdfdf;
+    background-color: #D9D9D9;
     color: blue;
   }
   .leave-status.approved {
-    background-color: #c0f1c0;
+    background-color: #D9D9D9;
     color: green;
   }
   .leave-status.rejected {
-    background-color: #f5baba;
+    background-color: #D9D9D9;
     color: red;
   }
   
@@ -113,11 +100,9 @@
     top: 0.5rem;
     right: 1rem;
     font-size: 1.5rem;
-    font-weight: bold;
     cursor: pointer;
   }
   
-  /* Pola tekstowe w modalu */
   .modal-content textarea {
     width: 100%;
     padding: 0.5rem;
@@ -126,7 +111,6 @@
     border-radius: 4px;
   }
   
-  /* Sekcja przycisków Approve/Reject */
   .modal-actions {
     margin-top: 1.5rem;
     text-align: center;
@@ -155,3 +139,41 @@
     background-color: rgb(165, 4, 4);
   }
   
+
+
+  @media (max-width: 768px) {
+    .leave-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .leave-type,
+    .leave-dates,
+    .leave-status {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .employee-info p {
+      font-size: 0.9rem;
+    }
+  
+    main h2 {
+      font-size: 1.2rem;
+    }
+  
+    .leave-row {
+      padding: 0.5rem;
+    }
+  
+    .leave-type, .leave-dates, .leave-status {
+      font-size: 0.9rem;
+    }
+  
+    .status-btn {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+    }
+  }
