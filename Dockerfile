@@ -12,4 +12,10 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /e
 RUN chown -R www-data:www-data /var/www/html \
  && chmod -R 755 /var/www/html
 
+ RUN echo "<Directory /var/www/html/public>\n\
+ Options Indexes FollowSymLinks\n\
+ AllowOverride All\n\
+ Require all granted\n\
+</Directory>\n" >> /etc/apache2/apache2.conf
+
 EXPOSE 80
